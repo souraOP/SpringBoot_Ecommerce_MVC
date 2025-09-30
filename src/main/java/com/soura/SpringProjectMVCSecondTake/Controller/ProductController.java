@@ -44,4 +44,17 @@ public class ProductController {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+
+    // fetching the image data from mysql
+    @GetMapping("products/{productId}/image")
+    public ResponseEntity<byte[]> fetchProductImage(@PathVariable int productId){
+        Product product = productService.getProductById(productId);
+        // only if we get a product then only execute
+        if(product.getId() > 0){
+            return new ResponseEntity<>(product.getImageData(), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
 }
