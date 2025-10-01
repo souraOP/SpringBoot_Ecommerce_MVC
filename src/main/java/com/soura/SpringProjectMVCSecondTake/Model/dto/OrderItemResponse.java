@@ -1,4 +1,4 @@
-package com.soura.SpringProjectMVCSecondTake.dto;
+package com.soura.SpringProjectMVCSecondTake.Model.dto;
 
 import java.math.BigDecimal;
 
