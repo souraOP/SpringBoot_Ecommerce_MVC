@@ -11,8 +11,12 @@ import java.io.IOException;
 
 @Service
 public class ProductService {
-    @Autowired
     private ProductRepo productRepo;
+
+    @Autowired
+    public ProductService(ProductRepo productRepo){
+        this.productRepo = productRepo;
+    }
 
     public List<Product> getAllProducts(){
         return productRepo.findAll();
@@ -27,6 +31,21 @@ public class ProductService {
         product.setImageType(image.getContentType());
         product.setImageData(image.getBytes());
         return productRepo.save(product);
+    }
+
+    public Product addOrUpdateProduct(Product product, MultipartFile imageFile) throws IOException{
+        product.setImageName(imageFile.getOriginalFilename());
+        product.setImageType(imageFile.getContentType());
+        product.setImageData(imageFile.getBytes());
+        return productRepo.save(product);
+    }
+
+    public void deleteProduct(int id){
+        productRepo.deleteById(id);
+    }
+
+    public List<Product> searchKeyword(String keyword){
+        return productRepo.searchProducts(keyword);
     }
 
 }
